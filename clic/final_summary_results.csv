@@ -1,0 +1,11 @@
+"Dataset","CLIC_ARI","Mclust_ARI"
+"1_Baseline_Blobs",0,0.99002
+"2_Sharp_Voronoi",0.316876645352259,0.664933854087883
+"3_Density_Imbalance",0.984446768944263,1
+"4_Variance_Imbalance",0,0.893710832939818
+"5_Anisotropic",0.581334453835904,0.970105245625359
+"6_Radial_Hetero",0,0.0793320957762834
+"7_Linear_Gradient",0,0.262873858579404
+"8_Heavy_Tails",0,0.894165509794848
+"9_Checkerboard",0,0.983784618598623
+"10_Concentric_Rings",0,0.228368658128032
