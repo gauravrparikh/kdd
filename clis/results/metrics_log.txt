@@ -58,3 +58,493 @@ Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 392
 
 Dataset: fractal_clouds.npz | ARI: 0.0000 | Contrast: 0.00
 Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3073, 'purity': 0.5121666666666667}}
+
+Dataset: voronoi_sharp.npz | ARI: 0.5150 | Contrast: 587722366.63
+Intersection Report: {np.int64(6): {'matched_truth': 0, 'intersection_size': 508, 'purity': 1.0}, np.int64(7): {'matched_truth': 0, 'intersection_size': 344, 'purity': 1.0}, np.int64(8): {'matched_truth': 1, 'intersection_size': 84, 'purity': 0.9438202247191011}, np.int64(10): {'matched_truth': 4, 'intersection_size': 1098, 'purity': 0.7759717314487633}, np.int64(11): {'matched_truth': 1, 'intersection_size': 1338, 'purity': 0.9730909090909091}, np.int64(12): {'matched_truth': 0, 'intersection_size': 290, 'purity': 1.0}, np.int64(13): {'matched_truth': 1, 'intersection_size': 127, 'purity': 0.8523489932885906}, np.int64(14): {'matched_truth': 3, 'intersection_size': 875, 'purity': 0.4781420765027322}}
+
+Dataset: linear_gradient.npz | ARI: 0.3339 | Contrast: 2047608333.69
+Intersection Report: {np.int64(1): {'matched_truth': 0, 'intersection_size': 1023, 'purity': 1.0}, np.int64(3): {'matched_truth': 1, 'intersection_size': 949, 'purity': 0.8209342560553633}, np.int64(4): {'matched_truth': 4, 'intersection_size': 1201, 'purity': 0.31431562418215125}}
+
+Dataset: concentric_donuts.npz | ARI: 0.0734 | Contrast: 60550582.99
+Intersection Report: {np.int64(2): {'matched_truth': 2, 'intersection_size': 1112, 'purity': 1.0}, np.int64(4): {'matched_truth': 2, 'intersection_size': 942, 'purity': 1.0}, np.int64(6): {'matched_truth': 2, 'intersection_size': 567, 'purity': 1.0}, np.int64(8): {'matched_truth': 2, 'intersection_size': 322, 'purity': 1.0}, np.int64(10): {'matched_truth': 2, 'intersection_size': 145, 'purity': 1.0}, np.int64(11): {'matched_truth': 1, 'intersection_size': 1544, 'purity': 0.5663976522377109}, np.int64(12): {'matched_truth': 2, 'intersection_size': 186, 'purity': 1.0}}
+
+Dataset: oblique_stripes.npz | ARI: 0.0000 | Contrast: 0.00
+Intersection Report: {np.int64(0): {'matched_truth': 1, 'intersection_size': 3029, 'purity': 0.5048333333333334}}
+
+Dataset: sparse_islands.npz | ARI: 0.0221 | Contrast: 490221415.05
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 2096, 'purity': 1.0}, np.int64(3): {'matched_truth': 0, 'intersection_size': 312, 'purity': 1.0}, np.int64(7): {'matched_truth': 0, 'intersection_size': 59, 'purity': 0.5841584158415841}, np.int64(8): {'matched_truth': 0, 'intersection_size': 1214, 'purity': 1.0}, np.int64(9): {'matched_truth': 0, 'intersection_size': 280, 'purity': 1.0}, np.int64(11): {'matched_truth': 0, 'intersection_size': 142, 'purity': 1.0}, np.int64(13): {'matched_truth': 0, 'intersection_size': 154, 'purity': 1.0}, np.int64(14): {'matched_truth': 0, 'intersection_size': 1206, 'purity': 0.708994708994709}}
+
+Dataset: spiral_volatility.npz | ARI: 0.0575 | Contrast: 309367275.82
+Intersection Report: {np.int64(1): {'matched_truth': 1, 'intersection_size': 3219, 'purity': 0.5876232201533407}, np.int64(2): {'matched_truth': 0, 'intersection_size': 522, 'purity': 1.0}}
+
+Dataset: checkerboard.npz | ARI: 0.0000 | Contrast: 0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3076, 'purity': 0.5126666666666667}}
+
+Dataset: density_bias.npz | ARI: 0.6949 | Contrast: 1305191009.80
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 4821, 'purity': 0.9531435349940688}, np.int64(3): {'matched_truth': 1, 'intersection_size': 361, 'purity': 0.7191235059760956}, np.int64(4): {'matched_truth': 1, 'intersection_size': 440, 'purity': 1.0}}
+
+Dataset: nested_targets.npz | ARI: 0.7326 | Contrast: 212241893.38
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 3921, 'purity': 0.9342387419585418}, np.int64(3): {'matched_truth': 1, 'intersection_size': 426, 'purity': 1.0}, np.int64(6): {'matched_truth': 1, 'intersection_size': 388, 'purity': 1.0}, np.int64(7): {'matched_truth': 1, 'intersection_size': 382, 'purity': 0.52400548696845}, np.int64(8): {'matched_truth': 1, 'intersection_size': 260, 'purity': 1.0}}
+
+Dataset: fractal_clouds.npz | ARI: 0.0000 | Contrast: 0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3073, 'purity': 0.5121666666666667}}
+
+Dataset: voronoi_sharp.npz
+Settings: Complexity Penalty=2.0
+Performance: Fit=0.8952s, Pred=0.0042s
+Scores: ARI=0.5487, Contrast=952891010.94
+Intersection Report: {np.int64(3): {'matched_truth': 4, 'intersection_size': 1116, 'purity': 0.8365817091454273}, np.int64(4): {'matched_truth': 3, 'intersection_size': 875, 'purity': 0.4268292682926829}, np.int64(5): {'matched_truth': 0, 'intersection_size': 719, 'purity': 1.0}, np.int64(7): {'matched_truth': 0, 'intersection_size': 321, 'purity': 1.0}, np.int64(8): {'matched_truth': 1, 'intersection_size': 1451, 'purity': 0.9206852791878173}}
+------------------------------
+Dataset: linear_gradient.npz
+Settings: Complexity Penalty=2.0
+Performance: Fit=0.4537s, Pred=0.0007s
+Scores: ARI=0.4238, Contrast=2460709290.72
+Intersection Report: {np.int64(2): {'matched_truth': 4, 'intersection_size': 1201, 'purity': 0.3736776602364655}, np.int64(3): {'matched_truth': 0, 'intersection_size': 1057, 'purity': 1.0}, np.int64(4): {'matched_truth': 1, 'intersection_size': 1199, 'purity': 0.6934644303065356}}
+------------------------------
+Dataset: concentric_donuts.npz
+Settings: Complexity Penalty=2.0
+Performance: Fit=1.0444s, Pred=0.0025s
+Scores: ARI=0.0919, Contrast=67967377.73
+Intersection Report: {np.int64(1): {'matched_truth': 2, 'intersection_size': 932, 'purity': 1.0}, np.int64(4): {'matched_truth': 2, 'intersection_size': 954, 'purity': 1.0}, np.int64(6): {'matched_truth': 2, 'intersection_size': 628, 'purity': 1.0}, np.int64(7): {'matched_truth': 2, 'intersection_size': 426, 'purity': 1.0}, np.int64(10): {'matched_truth': 2, 'intersection_size': 276, 'purity': 1.0}, np.int64(11): {'matched_truth': 1, 'intersection_size': 1544, 'purity': 0.6000777302759425}, np.int64(12): {'matched_truth': 2, 'intersection_size': 211, 'purity': 1.0}}
+------------------------------
+Dataset: oblique_stripes.npz
+Settings: Complexity Penalty=2.0
+Performance: Fit=0.0969s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 1, 'intersection_size': 3029, 'purity': 0.5048333333333334}}
+------------------------------
+Dataset: sparse_islands.npz
+Settings: Complexity Penalty=2.0
+Performance: Fit=1.3695s, Pred=0.0053s
+Scores: ARI=-0.0114, Contrast=224620586.39
+Intersection Report: {np.int64(1): {'matched_truth': 0, 'intersection_size': 1388, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 756, 'purity': 1.0}, np.int64(5): {'matched_truth': 0, 'intersection_size': 445, 'purity': 1.0}, np.int64(7): {'matched_truth': 0, 'intersection_size': 356, 'purity': 1.0}, np.int64(11): {'matched_truth': 0, 'intersection_size': 161, 'purity': 1.0}, np.int64(13): {'matched_truth': 0, 'intersection_size': 54, 'purity': 0.8709677419354839}, np.int64(14): {'matched_truth': 0, 'intersection_size': 641, 'purity': 1.0}, np.int64(15): {'matched_truth': 0, 'intersection_size': 217, 'purity': 1.0}, np.int64(17): {'matched_truth': 0, 'intersection_size': 110, 'purity': 1.0}, np.int64(19): {'matched_truth': 0, 'intersection_size': 148, 'purity': 1.0}, np.int64(21): {'matched_truth': 0, 'intersection_size': 152, 'purity': 1.0}, np.int64(22): {'matched_truth': 0, 'intersection_size': 1035, 'purity': 0.6617647058823529}}
+------------------------------
+Dataset: spiral_volatility.npz
+Settings: Complexity Penalty=2.0
+Performance: Fit=0.5195s, Pred=0.0015s
+Scores: ARI=0.1206, Contrast=274429581.72
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 343, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 437, 'purity': 1.0}, np.int64(5): {'matched_truth': 1, 'intersection_size': 3219, 'purity': 0.6390708755211435}, np.int64(6): {'matched_truth': 0, 'intersection_size': 183, 'purity': 1.0}}
+------------------------------
+Dataset: checkerboard.npz
+Settings: Complexity Penalty=2.0
+Performance: Fit=0.1708s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3076, 'purity': 0.5126666666666667}}
+------------------------------
+Dataset: density_bias.npz
+Settings: Complexity Penalty=2.0
+Performance: Fit=0.0950s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 4962, 'purity': 0.827}}
+------------------------------
+Dataset: nested_targets.npz
+Settings: Complexity Penalty=2.0
+Performance: Fit=0.0995s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3921, 'purity': 0.6535}}
+------------------------------
+Dataset: fractal_clouds.npz
+Settings: Complexity Penalty=2.0
+Performance: Fit=0.4167s, Pred=0.0014s
+Scores: ARI=0.0297, Contrast=57326276.24
+Intersection Report: {np.int64(1): {'matched_truth': 1, 'intersection_size': 2796, 'purity': 0.5597597597597598}, np.int64(4): {'matched_truth': 0, 'intersection_size': 274, 'purity': 1.0}, np.int64(5): {'matched_truth': 0, 'intersection_size': 165, 'purity': 1.0}, np.int64(6): {'matched_truth': 0, 'intersection_size': 435, 'purity': 0.7685512367491166}}
+------------------------------
+Dataset: voronoi_sharp.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.6303s, Pred=0.0019s
+Scores: ARI=0.5487, Contrast=952891010.94
+Intersection Report: {np.int64(3): {'matched_truth': 4, 'intersection_size': 1116, 'purity': 0.8365817091454273}, np.int64(4): {'matched_truth': 3, 'intersection_size': 875, 'purity': 0.4268292682926829}, np.int64(5): {'matched_truth': 0, 'intersection_size': 719, 'purity': 1.0}, np.int64(7): {'matched_truth': 0, 'intersection_size': 321, 'purity': 1.0}, np.int64(8): {'matched_truth': 1, 'intersection_size': 1451, 'purity': 0.9206852791878173}}
+------------------------------
+Dataset: linear_gradient.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.3932s, Pred=0.0007s
+Scores: ARI=0.4238, Contrast=2460709290.72
+Intersection Report: {np.int64(2): {'matched_truth': 4, 'intersection_size': 1201, 'purity': 0.3736776602364655}, np.int64(3): {'matched_truth': 0, 'intersection_size': 1057, 'purity': 1.0}, np.int64(4): {'matched_truth': 1, 'intersection_size': 1199, 'purity': 0.6934644303065356}}
+------------------------------
+Dataset: concentric_donuts.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=1.0477s, Pred=0.0026s
+Scores: ARI=0.1178, Contrast=67623515.06
+Intersection Report: {np.int64(1): {'matched_truth': 2, 'intersection_size': 932, 'purity': 1.0}, np.int64(4): {'matched_truth': 2, 'intersection_size': 954, 'purity': 1.0}, np.int64(6): {'matched_truth': 2, 'intersection_size': 628, 'purity': 1.0}, np.int64(7): {'matched_truth': 2, 'intersection_size': 426, 'purity': 1.0}, np.int64(10): {'matched_truth': 2, 'intersection_size': 276, 'purity': 1.0}, np.int64(12): {'matched_truth': 2, 'intersection_size': 211, 'purity': 1.0}, np.int64(13): {'matched_truth': 2, 'intersection_size': 135, 'purity': 1.0}, np.int64(14): {'matched_truth': 1, 'intersection_size': 1544, 'purity': 0.6333059885151764}}
+------------------------------
+Dataset: oblique_stripes.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.0951s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 1, 'intersection_size': 3029, 'purity': 0.5048333333333334}}
+------------------------------
+Dataset: sparse_islands.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=1.3180s, Pred=0.0054s
+Scores: ARI=-0.0114, Contrast=224620586.39
+Intersection Report: {np.int64(1): {'matched_truth': 0, 'intersection_size': 1388, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 756, 'purity': 1.0}, np.int64(5): {'matched_truth': 0, 'intersection_size': 445, 'purity': 1.0}, np.int64(7): {'matched_truth': 0, 'intersection_size': 356, 'purity': 1.0}, np.int64(11): {'matched_truth': 0, 'intersection_size': 161, 'purity': 1.0}, np.int64(13): {'matched_truth': 0, 'intersection_size': 54, 'purity': 0.8709677419354839}, np.int64(14): {'matched_truth': 0, 'intersection_size': 641, 'purity': 1.0}, np.int64(15): {'matched_truth': 0, 'intersection_size': 217, 'purity': 1.0}, np.int64(17): {'matched_truth': 0, 'intersection_size': 110, 'purity': 1.0}, np.int64(19): {'matched_truth': 0, 'intersection_size': 148, 'purity': 1.0}, np.int64(21): {'matched_truth': 0, 'intersection_size': 152, 'purity': 1.0}, np.int64(22): {'matched_truth': 0, 'intersection_size': 1035, 'purity': 0.6617647058823529}}
+------------------------------
+Dataset: spiral_volatility.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.5100s, Pred=0.0016s
+Scores: ARI=0.1206, Contrast=274429581.72
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 343, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 437, 'purity': 1.0}, np.int64(5): {'matched_truth': 1, 'intersection_size': 3219, 'purity': 0.6390708755211435}, np.int64(6): {'matched_truth': 0, 'intersection_size': 183, 'purity': 1.0}}
+------------------------------
+Dataset: checkerboard.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.0966s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3076, 'purity': 0.5126666666666667}}
+------------------------------
+Dataset: density_bias.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.0949s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 4962, 'purity': 0.827}}
+------------------------------
+Dataset: nested_targets.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.0940s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3921, 'purity': 0.6535}}
+------------------------------
+Dataset: fractal_clouds.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.4175s, Pred=0.0015s
+Scores: ARI=0.0297, Contrast=57326276.24
+Intersection Report: {np.int64(1): {'matched_truth': 1, 'intersection_size': 2796, 'purity': 0.5597597597597598}, np.int64(4): {'matched_truth': 0, 'intersection_size': 274, 'purity': 1.0}, np.int64(5): {'matched_truth': 0, 'intersection_size': 165, 'purity': 1.0}, np.int64(6): {'matched_truth': 0, 'intersection_size': 435, 'purity': 0.7685512367491166}}
+------------------------------
+Dataset: voronoi_sharp.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=1.0438s, Pred=0.0018s
+Scores: ARI=0.5232, Contrast=739463927.65
+Intersection Report: {np.int64(3): {'matched_truth': 0, 'intersection_size': 910, 'purity': 1.0}, np.int64(4): {'matched_truth': 1, 'intersection_size': 1172, 'purity': 0.9022324865280985}, np.int64(7): {'matched_truth': 0, 'intersection_size': 94, 'purity': 1.0}, np.int64(8): {'matched_truth': 4, 'intersection_size': 1116, 'purity': 0.8322147651006712}, np.int64(9): {'matched_truth': 1, 'intersection_size': 197, 'purity': 0.8834080717488789}, np.int64(11): {'matched_truth': 1, 'intersection_size': 186, 'purity': 0.9346733668341709}, np.int64(12): {'matched_truth': 3, 'intersection_size': 875, 'purity': 0.45243019648397104}}
+------------------------------
+Dataset: linear_gradient.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.4457s, Pred=0.0009s
+Scores: ARI=0.2529, Contrast=2087097376.49
+Intersection Report: {np.int64(1): {'matched_truth': 4, 'intersection_size': 1201, 'purity': 0.3070040899795501}, np.int64(3): {'matched_truth': 0, 'intersection_size': 562, 'purity': 1.0}, np.int64(4): {'matched_truth': 1, 'intersection_size': 858, 'purity': 0.562254259501966}}
+------------------------------
+Dataset: concentric_donuts.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.7682s, Pred=0.0022s
+Scores: ARI=0.1839, Contrast=100722646.08
+Intersection Report: {np.int64(2): {'matched_truth': 2, 'intersection_size': 1255, 'purity': 1.0}, np.int64(4): {'matched_truth': 2, 'intersection_size': 1159, 'purity': 1.0}, np.int64(6): {'matched_truth': 2, 'intersection_size': 649, 'purity': 1.0}, np.int64(7): {'matched_truth': 1, 'intersection_size': 1544, 'purity': 0.6390728476821192}, np.int64(8): {'matched_truth': 2, 'intersection_size': 521, 'purity': 1.0}}
+------------------------------
+Dataset: oblique_stripes.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.1165s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 1, 'intersection_size': 3029, 'purity': 0.5048333333333334}}
+------------------------------
+Dataset: sparse_islands.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.9697s, Pred=0.0025s
+Scores: ARI=-0.0349, Contrast=188681089.74
+Intersection Report: {np.int64(1): {'matched_truth': 0, 'intersection_size': 1409, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 881, 'purity': 1.0}, np.int64(5): {'matched_truth': 0, 'intersection_size': 618, 'purity': 1.0}, np.int64(8): {'matched_truth': 0, 'intersection_size': 393, 'purity': 1.0}, np.int64(9): {'matched_truth': 0, 'intersection_size': 300, 'purity': 1.0}, np.int64(11): {'matched_truth': 0, 'intersection_size': 222, 'purity': 1.0}, np.int64(12): {'matched_truth': 0, 'intersection_size': 1640, 'purity': 0.7533302710151585}}
+------------------------------
+Dataset: spiral_volatility.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.7228s, Pred=0.0020s
+Scores: ARI=0.2435, Contrast=287605221.35
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 343, 'purity': 1.0}, np.int64(3): {'matched_truth': 1, 'intersection_size': 3093, 'purity': 0.7322443181818182}, np.int64(5): {'matched_truth': 0, 'intersection_size': 372, 'purity': 1.0}, np.int64(7): {'matched_truth': 0, 'intersection_size': 244, 'purity': 1.0}, np.int64(8): {'matched_truth': 0, 'intersection_size': 691, 'purity': 0.8457772337821298}}
+------------------------------
+Dataset: checkerboard.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.1229s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3076, 'purity': 0.5126666666666667}}
+------------------------------
+Dataset: density_bias.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.4447s, Pred=0.0013s
+Scores: ARI=0.5608, Contrast=1282739327.35
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 4915, 'purity': 0.9106911246989068}, np.int64(3): {'matched_truth': 1, 'intersection_size': 535, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 47, 'purity': 0.6911764705882353}}
+------------------------------
+Dataset: nested_targets.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.1127s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3921, 'purity': 0.6535}}
+------------------------------
+Dataset: fractal_clouds.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.1297s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3073, 'purity': 0.5121666666666667}}
+------------------------------
+Dataset: voronoi_sharp.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.9393s, Pred=0.0018s
+Scores: ARI=0.5232, Contrast=739463927.65
+Intersection Report: {np.int64(3): {'matched_truth': 0, 'intersection_size': 910, 'purity': 1.0}, np.int64(4): {'matched_truth': 1, 'intersection_size': 1172, 'purity': 0.9022324865280985}, np.int64(7): {'matched_truth': 0, 'intersection_size': 94, 'purity': 1.0}, np.int64(8): {'matched_truth': 4, 'intersection_size': 1116, 'purity': 0.8322147651006712}, np.int64(9): {'matched_truth': 1, 'intersection_size': 197, 'purity': 0.8834080717488789}, np.int64(11): {'matched_truth': 1, 'intersection_size': 186, 'purity': 0.9346733668341709}, np.int64(12): {'matched_truth': 3, 'intersection_size': 875, 'purity': 0.45243019648397104}}
+------------------------------
+Dataset: linear_gradient.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.4018s, Pred=0.0009s
+Scores: ARI=0.2529, Contrast=2087097376.49
+Intersection Report: {np.int64(1): {'matched_truth': 4, 'intersection_size': 1201, 'purity': 0.3070040899795501}, np.int64(3): {'matched_truth': 0, 'intersection_size': 562, 'purity': 1.0}, np.int64(4): {'matched_truth': 1, 'intersection_size': 858, 'purity': 0.562254259501966}}
+------------------------------
+Dataset: concentric_donuts.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.7206s, Pred=0.0021s
+Scores: ARI=0.1839, Contrast=100722646.08
+Intersection Report: {np.int64(2): {'matched_truth': 2, 'intersection_size': 1255, 'purity': 1.0}, np.int64(4): {'matched_truth': 2, 'intersection_size': 1159, 'purity': 1.0}, np.int64(6): {'matched_truth': 2, 'intersection_size': 649, 'purity': 1.0}, np.int64(7): {'matched_truth': 1, 'intersection_size': 1544, 'purity': 0.6390728476821192}, np.int64(8): {'matched_truth': 2, 'intersection_size': 521, 'purity': 1.0}}
+------------------------------
+Dataset: oblique_stripes.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.1203s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 1, 'intersection_size': 3029, 'purity': 0.5048333333333334}}
+------------------------------
+Dataset: sparse_islands.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=1.2767s, Pred=0.0026s
+Scores: ARI=-0.0349, Contrast=188681089.74
+Intersection Report: {np.int64(1): {'matched_truth': 0, 'intersection_size': 1409, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 881, 'purity': 1.0}, np.int64(5): {'matched_truth': 0, 'intersection_size': 618, 'purity': 1.0}, np.int64(8): {'matched_truth': 0, 'intersection_size': 393, 'purity': 1.0}, np.int64(9): {'matched_truth': 0, 'intersection_size': 300, 'purity': 1.0}, np.int64(11): {'matched_truth': 0, 'intersection_size': 222, 'purity': 1.0}, np.int64(12): {'matched_truth': 0, 'intersection_size': 1640, 'purity': 0.7533302710151585}}
+------------------------------
+Dataset: spiral_volatility.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.6730s, Pred=0.0020s
+Scores: ARI=0.2435, Contrast=287605221.35
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 343, 'purity': 1.0}, np.int64(3): {'matched_truth': 1, 'intersection_size': 3093, 'purity': 0.7322443181818182}, np.int64(5): {'matched_truth': 0, 'intersection_size': 372, 'purity': 1.0}, np.int64(7): {'matched_truth': 0, 'intersection_size': 244, 'purity': 1.0}, np.int64(8): {'matched_truth': 0, 'intersection_size': 691, 'purity': 0.8457772337821298}}
+------------------------------
+Dataset: checkerboard.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.1079s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3076, 'purity': 0.5126666666666667}}
+------------------------------
+Dataset: density_bias.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.3776s, Pred=0.0012s
+Scores: ARI=0.5608, Contrast=1282739327.35
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 4915, 'purity': 0.9106911246989068}, np.int64(3): {'matched_truth': 1, 'intersection_size': 535, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 47, 'purity': 0.6911764705882353}}
+------------------------------
+Dataset: nested_targets.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.1097s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3921, 'purity': 0.6535}}
+------------------------------
+Dataset: fractal_clouds.npz
+Settings: Complexity Penalty=0.05
+Performance: Fit=0.1384s, Pred=0.0000s
+Scores: ARI=0.0000, Contrast=0.00
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3073, 'purity': 0.5121666666666667}}
+------------------------------
+========================================
+Dataset: voronoi_sharp.npz
+----------------------------------------
+Structural: ARI=0.5232 | NMI=0.6389
+Contrast: 739463927.65
+Boundary Leakage Score: 0.1915
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 2.9744
+Intersection Report: {np.int64(3): {'matched_truth': 0, 'intersection_size': 910, 'purity': 1.0}, np.int64(4): {'matched_truth': 1, 'intersection_size': 1172, 'purity': 0.9022324865280985}, np.int64(7): {'matched_truth': 0, 'intersection_size': 94, 'purity': 1.0}, np.int64(8): {'matched_truth': 4, 'intersection_size': 1116, 'purity': 0.8322147651006712}, np.int64(9): {'matched_truth': 1, 'intersection_size': 197, 'purity': 0.8834080717488789}, np.int64(11): {'matched_truth': 1, 'intersection_size': 186, 'purity': 0.9346733668341709}, np.int64(12): {'matched_truth': 3, 'intersection_size': 875, 'purity': 0.45243019648397104}}
+
+========================================
+Dataset: linear_gradient.npz
+----------------------------------------
+Structural: ARI=0.2822 | NMI=0.4669
+Contrast: 2199710578.96
+Boundary Leakage Score: 0.0568
+Spatial Hinge Loss: 0.3261
+Boundary Variance Starkness: 7.6854
+Intersection Report: {np.int64(1): {'matched_truth': 4, 'intersection_size': 1201, 'purity': 0.3070040899795501}, np.int64(2): {'matched_truth': 0, 'intersection_size': 1230, 'purity': 0.5890804597701149}}
+
+========================================
+Dataset: concentric_donuts.npz
+----------------------------------------
+Structural: ARI=0.1839 | NMI=0.4184
+Contrast: 2831429535.43
+Boundary Leakage Score: 0.4443
+Spatial Hinge Loss: 5.1651
+Boundary Variance Starkness: 73.4407
+Intersection Report: {np.int64(2): {'matched_truth': 2, 'intersection_size': 1255, 'purity': 1.0}, np.int64(4): {'matched_truth': 2, 'intersection_size': 1159, 'purity': 1.0}, np.int64(6): {'matched_truth': 2, 'intersection_size': 649, 'purity': 1.0}, np.int64(7): {'matched_truth': 1, 'intersection_size': 1544, 'purity': 0.6390728476821192}, np.int64(8): {'matched_truth': 2, 'intersection_size': 521, 'purity': 1.0}}
+
+========================================
+Dataset: oblique_stripes.npz
+----------------------------------------
+Structural: ARI=0.0000 | NMI=0.0000
+Contrast: 0.00
+Boundary Leakage Score: 0.0000
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 0.0000
+Intersection Report: {np.int64(0): {'matched_truth': 1, 'intersection_size': 3029, 'purity': 0.5048333333333334}}
+
+========================================
+Dataset: sparse_islands.npz
+----------------------------------------
+Structural: ARI=-0.0349 | NMI=0.0999
+Contrast: 188794750.40
+Boundary Leakage Score: 0.6372
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 3.0266
+Intersection Report: {np.int64(1): {'matched_truth': 0, 'intersection_size': 1409, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 881, 'purity': 1.0}, np.int64(5): {'matched_truth': 0, 'intersection_size': 618, 'purity': 1.0}, np.int64(8): {'matched_truth': 0, 'intersection_size': 393, 'purity': 1.0}, np.int64(9): {'matched_truth': 0, 'intersection_size': 300, 'purity': 1.0}, np.int64(11): {'matched_truth': 0, 'intersection_size': 222, 'purity': 1.0}, np.int64(12): {'matched_truth': 0, 'intersection_size': 1640, 'purity': 0.7533302710151585}}
+
+========================================
+Dataset: spiral_volatility.npz
+----------------------------------------
+Structural: ARI=0.2435 | NMI=0.2661
+Contrast: 324536187.68
+Boundary Leakage Score: 0.2960
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 6.2978
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 343, 'purity': 1.0}, np.int64(3): {'matched_truth': 1, 'intersection_size': 3093, 'purity': 0.7322443181818182}, np.int64(5): {'matched_truth': 0, 'intersection_size': 372, 'purity': 1.0}, np.int64(7): {'matched_truth': 0, 'intersection_size': 244, 'purity': 1.0}, np.int64(8): {'matched_truth': 0, 'intersection_size': 691, 'purity': 0.8457772337821298}}
+
+========================================
+Dataset: checkerboard.npz
+----------------------------------------
+Structural: ARI=0.0000 | NMI=0.0000
+Contrast: 0.00
+Boundary Leakage Score: 0.0000
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 0.0000
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3076, 'purity': 0.5126666666666667}}
+
+========================================
+Dataset: density_bias.npz
+----------------------------------------
+Structural: ARI=0.5608 | NMI=0.4449
+Contrast: 1179456258.22
+Boundary Leakage Score: 0.0917
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 15.9308
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 4915, 'purity': 0.9106911246989068}, np.int64(3): {'matched_truth': 1, 'intersection_size': 535, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 47, 'purity': 0.6911764705882353}}
+
+========================================
+Dataset: nested_targets.npz
+----------------------------------------
+Structural: ARI=0.3174 | NMI=0.4607
+Contrast: 501892356.32
+Boundary Leakage Score: 0.4443
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 90.0988
+Intersection Report: {np.int64(3): {'matched_truth': 2, 'intersection_size': 283, 'purity': 0.7690217391304348}, np.int64(4): {'matched_truth': 1, 'intersection_size': 235, 'purity': 1.0}, np.int64(6): {'matched_truth': 0, 'intersection_size': 1723, 'purity': 1.0}, np.int64(8): {'matched_truth': 0, 'intersection_size': 1341, 'purity': 0.9647482014388489}, np.int64(9): {'matched_truth': 1, 'intersection_size': 1328, 'purity': 0.8092626447288239}, np.int64(10): {'matched_truth': 0, 'intersection_size': 608, 'purity': 0.9455676516329704}}
+
+========================================
+Dataset: fractal_clouds.npz
+----------------------------------------
+Structural: ARI=0.0000 | NMI=0.0000
+Contrast: 0.00
+Boundary Leakage Score: 0.0000
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 0.0000
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3073, 'purity': 0.5121666666666667}}
+
+========================================
+Dataset: interlocking_moons.npz
+----------------------------------------
+Structural: ARI=0.4585 | NMI=0.4912
+Contrast: 132682110.56
+Boundary Leakage Score: 0.2363
+Spatial Hinge Loss: 0.8688
+Boundary Variance Starkness: 0.1364
+Intersection Report: {np.int64(1): {'matched_truth': 1, 'intersection_size': 1582, 'purity': 1.0}, np.int64(3): {'matched_truth': 0, 'intersection_size': 3000, 'purity': 0.8088433540037746}, np.int64(4): {'matched_truth': 1, 'intersection_size': 709, 'purity': 1.0}}
+
+========================================
+Dataset: voronoi_sharp.npz
+----------------------------------------
+Structural: ARI=0.5232 | NMI=0.6389
+Contrast: 739463927.65
+Boundary Leakage Score: 0.1915
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 2.9744
+Intersection Report: {np.int64(3): {'matched_truth': 0, 'intersection_size': 910, 'purity': 1.0}, np.int64(4): {'matched_truth': 1, 'intersection_size': 1172, 'purity': 0.9022324865280985}, np.int64(7): {'matched_truth': 0, 'intersection_size': 94, 'purity': 1.0}, np.int64(8): {'matched_truth': 4, 'intersection_size': 1116, 'purity': 0.8322147651006712}, np.int64(9): {'matched_truth': 1, 'intersection_size': 197, 'purity': 0.8834080717488789}, np.int64(11): {'matched_truth': 1, 'intersection_size': 186, 'purity': 0.9346733668341709}, np.int64(12): {'matched_truth': 3, 'intersection_size': 875, 'purity': 0.45243019648397104}}
+
+========================================
+Dataset: linear_gradient.npz
+----------------------------------------
+Structural: ARI=0.2822 | NMI=0.4669
+Contrast: 2199710578.96
+Boundary Leakage Score: 0.0568
+Spatial Hinge Loss: 0.3261
+Boundary Variance Starkness: 7.6854
+Intersection Report: {np.int64(1): {'matched_truth': 4, 'intersection_size': 1201, 'purity': 0.3070040899795501}, np.int64(2): {'matched_truth': 0, 'intersection_size': 1230, 'purity': 0.5890804597701149}}
+
+========================================
+Dataset: concentric_donuts.npz
+----------------------------------------
+Structural: ARI=0.1839 | NMI=0.4184
+Contrast: 2831429535.43
+Boundary Leakage Score: 0.4443
+Spatial Hinge Loss: 5.1651
+Boundary Variance Starkness: 73.4407
+Intersection Report: {np.int64(2): {'matched_truth': 2, 'intersection_size': 1255, 'purity': 1.0}, np.int64(4): {'matched_truth': 2, 'intersection_size': 1159, 'purity': 1.0}, np.int64(6): {'matched_truth': 2, 'intersection_size': 649, 'purity': 1.0}, np.int64(7): {'matched_truth': 1, 'intersection_size': 1544, 'purity': 0.6390728476821192}, np.int64(8): {'matched_truth': 2, 'intersection_size': 521, 'purity': 1.0}}
+
+========================================
+Dataset: oblique_stripes.npz
+----------------------------------------
+Structural: ARI=0.0000 | NMI=0.0000
+Contrast: 0.00
+Boundary Leakage Score: 0.0000
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 0.0000
+Intersection Report: {np.int64(0): {'matched_truth': 1, 'intersection_size': 3029, 'purity': 0.5048333333333334}}
+
+========================================
+Dataset: sparse_islands.npz
+----------------------------------------
+Structural: ARI=-0.0349 | NMI=0.0999
+Contrast: 188794750.40
+Boundary Leakage Score: 0.6372
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 3.0266
+Intersection Report: {np.int64(1): {'matched_truth': 0, 'intersection_size': 1409, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 881, 'purity': 1.0}, np.int64(5): {'matched_truth': 0, 'intersection_size': 618, 'purity': 1.0}, np.int64(8): {'matched_truth': 0, 'intersection_size': 393, 'purity': 1.0}, np.int64(9): {'matched_truth': 0, 'intersection_size': 300, 'purity': 1.0}, np.int64(11): {'matched_truth': 0, 'intersection_size': 222, 'purity': 1.0}, np.int64(12): {'matched_truth': 0, 'intersection_size': 1640, 'purity': 0.7533302710151585}}
+
+========================================
+Dataset: spiral_volatility.npz
+----------------------------------------
+Structural: ARI=0.2435 | NMI=0.2661
+Contrast: 324536187.68
+Boundary Leakage Score: 0.2960
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 6.2978
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 343, 'purity': 1.0}, np.int64(3): {'matched_truth': 1, 'intersection_size': 3093, 'purity': 0.7322443181818182}, np.int64(5): {'matched_truth': 0, 'intersection_size': 372, 'purity': 1.0}, np.int64(7): {'matched_truth': 0, 'intersection_size': 244, 'purity': 1.0}, np.int64(8): {'matched_truth': 0, 'intersection_size': 691, 'purity': 0.8457772337821298}}
+
+========================================
+Dataset: checkerboard.npz
+----------------------------------------
+Structural: ARI=0.0000 | NMI=0.0000
+Contrast: 0.00
+Boundary Leakage Score: 0.0000
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 0.0000
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3076, 'purity': 0.5126666666666667}}
+
+========================================
+Dataset: density_bias.npz
+----------------------------------------
+Structural: ARI=0.5608 | NMI=0.4449
+Contrast: 1179456258.22
+Boundary Leakage Score: 0.0917
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 15.9308
+Intersection Report: {np.int64(2): {'matched_truth': 0, 'intersection_size': 4915, 'purity': 0.9106911246989068}, np.int64(3): {'matched_truth': 1, 'intersection_size': 535, 'purity': 1.0}, np.int64(4): {'matched_truth': 0, 'intersection_size': 47, 'purity': 0.6911764705882353}}
+
+========================================
+Dataset: nested_targets.npz
+----------------------------------------
+Structural: ARI=0.3174 | NMI=0.4607
+Contrast: 501892356.32
+Boundary Leakage Score: 0.4443
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 90.0988
+Intersection Report: {np.int64(3): {'matched_truth': 2, 'intersection_size': 283, 'purity': 0.7690217391304348}, np.int64(4): {'matched_truth': 1, 'intersection_size': 235, 'purity': 1.0}, np.int64(6): {'matched_truth': 0, 'intersection_size': 1723, 'purity': 1.0}, np.int64(8): {'matched_truth': 0, 'intersection_size': 1341, 'purity': 0.9647482014388489}, np.int64(9): {'matched_truth': 1, 'intersection_size': 1328, 'purity': 0.8092626447288239}, np.int64(10): {'matched_truth': 0, 'intersection_size': 608, 'purity': 0.9455676516329704}}
+
+========================================
+Dataset: fractal_clouds.npz
+----------------------------------------
+Structural: ARI=0.0000 | NMI=0.0000
+Contrast: 0.00
+Boundary Leakage Score: 0.0000
+Spatial Hinge Loss: 0.0000
+Boundary Variance Starkness: 0.0000
+Intersection Report: {np.int64(0): {'matched_truth': 0, 'intersection_size': 3073, 'purity': 0.5121666666666667}}
+
+========================================
+Dataset: interlocking_moons.npz
+----------------------------------------
+Structural: ARI=0.4585 | NMI=0.4912
+Contrast: 132682110.56
+Boundary Leakage Score: 0.2363
+Spatial Hinge Loss: 0.8688
+Boundary Variance Starkness: 0.1364
+Intersection Report: {np.int64(1): {'matched_truth': 1, 'intersection_size': 1582, 'purity': 1.0}, np.int64(3): {'matched_truth': 0, 'intersection_size': 3000, 'purity': 0.8088433540037746}, np.int64(4): {'matched_truth': 1, 'intersection_size': 709, 'purity': 1.0}}

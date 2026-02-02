@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
 from sklearn.mixture import GaussianMixture
 
-# Pathing to allow imports from Models
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from models.Clis.engine import Clis
@@ -41,8 +41,8 @@ def run_final_benchmark():
         models = {
             "KMeans": KMeans(n_clusters=n_clusters, random_state=42),
             "GMM": GaussianMixture(n_components=n_clusters, random_state=42),
-            "CLIS-Single": Clis(loss_metric="pinball", complexity_penalty=0.01),
-            "CLIS-Forest": ClisForest(n_estimators=10, n_clusters=n_clusters, loss_metric="nll", complexity_penalty=0.01)
+            "CLIS-Single": Clis(loss_metric="pinball", complexity_penalty=0.5),
+            "CLIS-Forest": ClisForest(n_estimators=10, n_clusters=n_clusters, loss_metric="pinball", complexity_penalty=0.5)
         }
 
         results = {}
@@ -61,18 +61,35 @@ def run_final_benchmark():
                 test_preds = model.predict(feat_test)
             
             fit_time = time.time() - start_fit
-            results[name] = {"train": train_preds, "test": test_preds, "time": fit_time}
 
-            # 2. Record Comparative Metrics
-            ari_test = evaluator.structural_scores(labels_test, test_preds)['ARI']
+            scores = evaluator.structural_scores(labels_test, test_preds)
+            
+            leakage = evaluator.boundary_leakage_score(X_test, labels_test, test_preds)
+            hinge_loss = evaluator.spatial_hinge_loss(X_test, labels_test, test_preds)            
+            starkness = evaluator.boundary_variance_starkness(X_test, y_test, test_preds)
+            
+            results[name] = {
+                "train": train_preds, 
+                "test": test_preds, 
+                "time": fit_time,
+                "ARI": scores['ARI'],
+                "Leakage": leakage,
+                "Hinge": hinge_loss,
+                "Starkness": starkness
+            }
+
             all_metrics.append({
-                "Dataset": d_file, "Model": name, "ARI_Test": ari_test, "Fit_Time": fit_time
+                "Dataset": d_file, 
+                "Model": name, 
+                "ARI_Test": scores['ARI'], 
+                "Leakage": leakage,
+                "Hinge_Loss": hinge_loss,
+                "Starkness": starkness,
+                "Fit_Time": fit_time
             })
 
-        # 3. Visualization (10 Panels: Ground Truth + Z + 4 Train + 4 Test)
-        fig, axes = plt.subplots(2, 5, figsize=(25, 10))
+        fig, axes = plt.subplots(2, 5, figsize=(25, 12))
         
-        # Ground Truths
         axes[0, 0].scatter(X['x'], X['y'], c=true_labels, cmap='tab10', s=2)
         axes[0, 0].set_title("Ground Truth Labels")
         
@@ -80,24 +97,23 @@ def run_final_benchmark():
         fig.colorbar(sc, ax=axes[1, 0])
         axes[1, 0].set_title("Variance Signal (Z)")
 
-        # Map Results to Plots
         model_names = ["KMeans", "GMM", "CLIS-Single", "CLIS-Forest"]
         for i, name in enumerate(model_names):
-            # Train Plots
             axes[0, i+1].scatter(X_train['x'], X_train['y'], c=results[name]["train"], cmap='prism', s=2)
             axes[0, i+1].set_title(f"{name} (Train)\nTime: {results[name]['time']:.2f}s")
             
-            # Test Plots
-            ari = evaluator.structural_scores(labels_test, results[name]["test"])['ARI']
-            axes[1, i+1].scatter(X_test['x'], X_test['y'], c=results[name]["test"], cmap='prism', s=5)
-            axes[1, i+1].set_title(f"{name} (Test)\nARI: {ari:.2f}")
+            res = results[name]
+            axes[1, i+1].scatter(X_test['x'], X_test['y'], c=res["test"], cmap='prism', s=5)
+            axes[1, i+1].set_title(
+                f"{name} (Test)\nARI: {res['ARI']:.2f} | Leak: {res['Leakage']:.2f}\n"
+                f"Hinge: {res['Hinge']:.2f} | Stark: {res['Starkness']:.1f}"
+            )
 
         plt.tight_layout()
         plt.savefig(os.path.join(results_dir, f"final_eval_{d_file.replace('.npz', '.png')}"))
         plt.close()
-
-    # Save CSV metrics
-    pd.DataFrame(all_metrics).to_csv(os.path.join(results_dir, "final_metrics.csv"), index=False)
+    pd.DataFrame(all_metrics).to_csv(os.path.join(results_dir, "final_metrics_comprehensive.csv"), index=False)
+    print(f"\n[SUCCESS] Comprehensive metrics saved to {results_dir}")
 
 if __name__ == "__main__":
     run_final_benchmark()
