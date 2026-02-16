@@ -41,8 +41,8 @@ def run_final_benchmark():
         models = {
             "KMeans": KMeans(n_clusters=n_clusters, random_state=42),
             "GMM": GaussianMixture(n_components=n_clusters, random_state=42),
-            "CLIS-Single": Clis(loss_metric="pinball", complexity_penalty=0.01,lookahead_depth=0),
-            "CLIS-Forest": ClisForest(n_estimators=10, n_clusters=n_clusters, loss_metric="pinball", complexity_penalty=0.01,lookahead_depth=0)
+            "CLIS-Single": Clis(loss_metric="pinball", complexity_penalty=0.01, lookahead_depth=0),
+            "CLIS-Forest": ClisForest(n_estimators=10, n_clusters=n_clusters, loss_metric="pinball", complexity_penalty=0.01, lookahead_depth=0)
         }
 
         results = {}
@@ -53,7 +53,6 @@ def run_final_benchmark():
                 train_preds = model.predict(X_train)
                 test_preds = model.predict(X_test)
             else:
-                # GMM/KMeans use spatial + variance features
                 feat_train = np.column_stack([X_train, y_train])
                 feat_test = np.column_stack([X_test, y_test])
                 model.fit(feat_train)
@@ -70,34 +69,41 @@ def run_final_benchmark():
             })
 
         # 3. Visualization (10 Panels: Ground Truth + Z + 4 Train + 4 Test)
-        fig, axes = plt.subplots(2, 5, figsize=(25, 10))
+        # Modified to use 3D projection
+        fig = plt.figure(figsize=(25, 12))
         
+        # Helper to create 3D axes
+        def add_3d_subplot(pos, title):
+            ax = fig.add_subplot(2, 5, pos, projection='3d')
+            ax.set_title(title)
+            return ax
+
         # Ground Truths
-        axes[0, 0].scatter(X['x'], X['y'], c=true_labels, cmap='tab10', s=2)
-        axes[0, 0].set_title("Ground Truth Labels")
+        ax00 = add_3d_subplot(1, "Ground Truth Labels")
+        ax00.scatter(X['x'], X['y'], y, c=true_labels, cmap='tab10', s=2)
         
-        sc = axes[1, 0].scatter(X['x'], X['y'], c=y, cmap='viridis', s=2)
-        fig.colorbar(sc, ax=axes[1, 0])
-        axes[1, 0].set_title("Variance Signal (Z)")
+        ax10 = add_3d_subplot(6, "Variance Signal (Z)")
+        sc = ax10.scatter(X['x'], X['y'], y, c=y, cmap='viridis', s=2)
+        fig.colorbar(sc, ax=ax10, shrink=0.5)
 
         # Map Results to Plots
         model_names = ["KMeans", "GMM", "CLIS-Single", "CLIS-Forest"]
         for i, name in enumerate(model_names):
             # Train Plots
-            axes[0, i+1].scatter(X_train['x'], X_train['y'], c=results[name]["train"], cmap='prism', s=2)
-            axes[0, i+1].set_title(f"{name} (Train)\nTime: {results[name]['time']:.2f}s")
+            ax_train = add_3d_subplot(i+2, f"{name} (Train)\nTime: {results[name]['time']:.2f}s")
+            ax_train.scatter(X_train['x'], X_train['y'], y_train, c=results[name]["train"], cmap='prism', s=2)
             
             # Test Plots
             ari = evaluator.structural_scores(labels_test, results[name]["test"])['ARI']
-            axes[1, i+1].scatter(X_test['x'], X_test['y'], c=results[name]["test"], cmap='prism', s=5)
-            axes[1, i+1].set_title(f"{name} (Test)\nARI: {ari:.2f}")
+            ax_test = add_3d_subplot(i+7, f"{name} (Test)\nARI: {ari:.2f}")
+            ax_test.scatter(X_test['x'], X_test['y'], y_test, c=results[name]["test"], cmap='prism', s=5)
 
         plt.tight_layout()
-        plt.savefig(os.path.join(results_dir, f"final_eval_{d_file.replace('.npz', '.png')}"))
+        plt.savefig(os.path.join(results_dir, f"final_eval_3d_{d_file.replace('.npz', '.png')}"))
         plt.close()
 
     # Save CSV metrics
-    pd.DataFrame(all_metrics).to_csv(os.path.join(results_dir, "final_metrics.csv"), index=False)
+    pd.DataFrame(all_metrics).to_csv(os.path.join(results_dir, "final_metrics_3d.csv"), index=False)
 
 if __name__ == "__main__":
     run_final_benchmark()

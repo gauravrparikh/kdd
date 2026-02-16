@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, ClusterMixin
-from sklearn.cluster import SpectralClustering
+from sklearn.cluster import MiniBatchKMeans
 from .engine import Clis
 
 class ClisForest(BaseEstimator, ClusterMixin):
@@ -13,14 +13,6 @@ class ClisForest(BaseEstimator, ClusterMixin):
         random_state=42,
         **tree_params
     ):
-        """
-        Ensemble of CLIS trees using a Co-association Matrix for consensus.
-        
-        :param n_estimators: Number of CLIS trees to grow.
-        :param bootstrap_sample_ratio: Fraction of data to sample for each tree.
-        :param n_clusters: The final number of clusters for the consensus step.
-        :param tree_params: Parameters passed to the individual Clis trees (loss_metric, complexity_penalty, etc).
-        """
         self.n_estimators = n_estimators
         self.bootstrap_sample_ratio = bootstrap_sample_ratio
         self.n_clusters = n_clusters
@@ -29,21 +21,16 @@ class ClisForest(BaseEstimator, ClusterMixin):
         self.trees = []
 
     def fit(self, X, y):
-        """
-        Build the forest by training multiple CLIS trees on bootstrap samples.
-        """
         np.random.seed(self.random_state)
         self.trees = []
         n_samples = len(X)
         sample_size = int(n_samples * self.bootstrap_sample_ratio)
 
         for i in range(self.n_estimators):
-            # Bootstrap sampling: random selection with replacement
             indices = np.random.choice(n_samples, sample_size, replace=True)
             X_sample = X.iloc[indices]
             y_sample = y[indices]
 
-            # Initialize and fit individual CLIS tree
             tree = Clis(random_state=self.random_state + i, **self.tree_params)
             tree.fit(X_sample, y_sample)
             self.trees.append(tree)
@@ -52,38 +39,33 @@ class ClisForest(BaseEstimator, ClusterMixin):
 
     def predict(self, X):
         """
-        Consensus clustering using a Co-association Matrix.
-        Points that frequently end up in the same leaf across the forest 
-        are clustered together.
+        Modified Scalable Consensus:
+        Uses Leaf-Feature Embedding + MiniBatchKMeans instead of 
+        an N x N Co-association matrix.
         """
         n_samples = len(X)
-        # Initialize similarity matrix
-        co_association = np.zeros((n_samples, n_samples))
         
-        print(f"Building Co-association matrix for {self.n_estimators} trees...")
+        # 1. Generate an 'Embedding' of leaf IDs
+        # Shape: (n_samples, n_estimators)
+        leaf_matrix = np.zeros((n_samples, self.n_estimators), dtype=int)
         
-        for tree in self.trees:
-            # Get hard labels from the current tree
-            labels = tree.predict(X)
-            
-            # Vectorized similarity update: 
-            # If labels match, they belong to the same leaf
-            for cluster_id in np.unique(labels):
-                mask = (labels == cluster_id)
-                # Increment similarity for all pairs within the same leaf
-                co_association[np.ix_(mask, mask)] += 1
+        print(f"Generating leaf assignments from {self.n_estimators} trees...")
+        for i, tree in enumerate(self.trees):
+            leaf_matrix[:, i] = tree.predict(X)
         
-        # Normalize similarity by number of trees
-        co_association /= self.n_estimators
+        # 2. Perform Consensus via MiniBatchKMeans on the leaf assignments
+        # This treats the leaf IDs as features. 
+        # Note: Since leaf IDs are categorical, we use one-hot encoding or 
+        # a high-speed partitioner to find commonalities.
+        print(f"Performing Scalable Consensus for {self.n_clusters} clusters...")
         
-        # Final Step: Consensus via Spectral Clustering
-        # This converts the similarity matrix into stable, final clusters.
-        print(f"Performing Spectral Consensus for {self.n_clusters} clusters...")
-        consensus_model = SpectralClustering(
+        # We use MiniBatchKMeans because it scales O(N) rather than O(N^3)
+        consensus_model = MiniBatchKMeans(
             n_clusters=self.n_clusters,
-            affinity='precomputed',
             random_state=self.random_state,
-            assign_labels='discretize'
+            batch_size=1024,
+            n_init="auto"
         )
         
-        return consensus_model.fit_predict(co_association)
+        # Final prediction
+        return consensus_model.fit_predict(leaf_matrix)

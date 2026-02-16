@@ -211,7 +211,7 @@ class SyntheticFactory:
 
 if __name__ == "__main__":
     # Standard Behavior: All clusters share Mean=50 (Variance signal only)
-    factory_std = SyntheticFactory(n_samples=6000, mean_shift=False)
+    factory_std = SyntheticFactory(n_samples=60000, mean_shift=False)
     factory_std.generate_voronoi_sharp()
     factory_std.generate_variance_gradient()
     factory_std.generate_sparse_islands()
@@ -219,7 +219,7 @@ if __name__ == "__main__":
     factory_std.generate_density_variance_bias()
 
     # Enhanced Behavior: Starkly different means and variances for clarity
-    factory_shift = SyntheticFactory(n_samples=6000, mean_shift=True)
+    factory_shift = SyntheticFactory(n_samples=60000, mean_shift=True)
     factory_shift.generate_concentric_donuts()
     factory_shift.generate_anisotropic_streaks()
     factory_shift.generate_checkerboard_regimes()
