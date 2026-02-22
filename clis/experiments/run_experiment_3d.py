@@ -41,12 +41,13 @@ def run_final_benchmark():
         models = {
             "KMeans": KMeans(n_clusters=n_clusters, random_state=42),
             "GMM": GaussianMixture(n_components=n_clusters, random_state=42),
-            "CLIS-Single": Clis(loss_metric="pinball", complexity_penalty=0.01, lookahead_depth=0),
-            "CLIS-Forest": ClisForest(n_estimators=10, n_clusters=n_clusters, loss_metric="pinball", complexity_penalty=0.01, lookahead_depth=0)
+            "CLIS-Single": Clis(loss_metric="pinball", lookahead_depth=0),
+            # "CLIS-Forest": ClisForest(n_estimators=10, n_clusters=n_clusters, loss_metric="pinball", lookahead_depth=0)
         }
 
         results = {}
         for name, model in models.items():
+            print(f"Fitting {name}...")
             start_fit = time.time()
             if "CLIS" in name:
                 model.fit(X_train, y_train)
@@ -87,7 +88,7 @@ def run_final_benchmark():
         fig.colorbar(sc, ax=ax10, shrink=0.5)
 
         # Map Results to Plots
-        model_names = ["KMeans", "GMM", "CLIS-Single", "CLIS-Forest"]
+        model_names = ["KMeans", "GMM", "CLIS-Single"] # "CLIS-Forest"
         for i, name in enumerate(model_names):
             # Train Plots
             ax_train = add_3d_subplot(i+2, f"{name} (Train)\nTime: {results[name]['time']:.2f}s")

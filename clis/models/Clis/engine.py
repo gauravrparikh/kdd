@@ -12,9 +12,10 @@ class Clis(BaseEstimator, ClusterMixin):
         loss_metric="pinball", 
         strategies=("axis", "radial", "oblique", "elliptical"),
         random_state=42,
-        complexity_penalty=2.0,
+        complexity_penalty=1.0,
         lookahead_depth=2,
-        merge_threshold=0.005
+        merge_threshold=0.005,
+        min_depth=1
     ):
         self.complexity_penalty = complexity_penalty
         self.min_samples_leaf = min_samples_leaf
@@ -29,6 +30,7 @@ class Clis(BaseEstimator, ClusterMixin):
         self.leaf_labels_ = {}
         self.merge_map_ = {}
         self._next_node_id = 0
+        self.min_depth= min_depth
         
     def score(self, X, y):
         """Internal scorer for GridSearchCV: Lower NLL is better."""
@@ -52,14 +54,18 @@ class Clis(BaseEstimator, ClusterMixin):
             return (n / 2) * np.log(max(var, 1e-6)) + (n / 2)
         elif self.loss_metric == "pinball":
             loss = 0.0
-            for q in [0.1, 0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]:
+            for q in [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]:
                 pred = np.percentile(y, q * 100)
                 resid = y - pred
                 loss += np.sum(np.maximum(q * resid, (q - 1) * resid))
             return loss
         return 0.0
 
-    def _evaluate_lookahead(self, data, indices, current_lookahead):
+
+    def _evaluate_lookahead(self, data, indices, current_lookahead, current_depth=0):
+        """
+        Evaluates the best gain from the current node with optimized computational efficiency.
+        """
         sub_data = data.iloc[indices]
         n_node = len(indices)
         parent_loss = self._calculate_loss(sub_data["z"].values)
@@ -68,11 +74,16 @@ class Clis(BaseEstimator, ClusterMixin):
         best_split_info = None
         best_children = None
         
+        # Base penalty for making any split
         split_penalty = self.complexity_penalty * np.log(n_node)
+        
+        # Adaptive Sampling: Use 50 proposals at the root for accuracy, 
+        # and 10 at deeper levels to save computation.
+        n_proposals = 50 if current_depth == 0 else 10
         
         for strategy_name in self.strategies:
             strategy = STRATEGY_MAP[strategy_name]
-            for _ in range(10):
+            for _ in range(n_proposals):
                 params = strategy.propose(sub_data)
                 if params is None: continue
                 
@@ -83,14 +94,29 @@ class Clis(BaseEstimator, ClusterMixin):
                 if len(left_idx) < self.min_samples_leaf or len(right_idx) < self.min_samples_leaf:
                     continue
                 
+                # Immediate Gain
                 loss_l = self._calculate_loss(data.iloc[left_idx]["z"].values)
                 loss_r = self._calculate_loss(data.iloc[right_idx]["z"].values)
                 immediate_gain = parent_loss - (loss_l + loss_r) - split_penalty
                 
-                path_gain = immediate_gain
-                if current_lookahead < self.lookahead_depth:
-                    _, left_gain, _ = self._evaluate_lookahead(data, left_idx.tolist(), current_lookahead + 1)
-                    _, right_gain, _ = self._evaluate_lookahead(data, right_idx.tolist(), current_lookahead + 1)
+                # Warm Start: Force a positive signal if below min_depth to prevent early stopping.
+                if hasattr(self, 'min_depth') and current_depth < self.min_depth:
+                    path_gain = max(immediate_gain, 1e-5)
+                else:
+                    path_gain = immediate_gain
+
+                # Early Exit: Skip expensive lookahead if the immediate gain is clearly superior.
+                clear_winner_threshold = self.gain_threshold * 5
+                
+                if path_gain > clear_winner_threshold:
+                    # Maintain path_gain as immediate_gain
+                    pass
+                elif current_lookahead < self.lookahead_depth:
+                    # Recursive lookahead only for marginal splits to reduce burden.
+                    _, left_gain, _ = self._evaluate_lookahead(data, left_idx.tolist(), current_lookahead + 1, current_depth + 1)
+                    _, right_gain, _ = self._evaluate_lookahead(data, right_idx.tolist(), current_lookahead + 1, current_depth + 1)
+                    
+                    # Add potential of best future sub-splits
                     path_gain += max(0, left_gain) + max(0, right_gain)
                 
                 if path_gain > best_path_gain:
@@ -99,7 +125,7 @@ class Clis(BaseEstimator, ClusterMixin):
                     best_children = (left_idx.tolist(), right_idx.tolist())
                     
         return best_split_info, best_path_gain, best_children
-
+    
     def fit(self, X, y):
         if not isinstance(X, pd.DataFrame):
             X = pd.DataFrame(X, columns=['x', 'y'])
