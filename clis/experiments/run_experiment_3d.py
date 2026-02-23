@@ -42,7 +42,7 @@ def run_final_benchmark():
             "KMeans": KMeans(n_clusters=n_clusters, random_state=42),
             "GMM": GaussianMixture(n_components=n_clusters, random_state=42),
             "CLIS-Single": Clis(loss_metric="pinball", lookahead_depth=0),
-            # "CLIS-Forest": ClisForest(n_estimators=10, n_clusters=n_clusters, loss_metric="pinball", lookahead_depth=0)
+            "CLIS-Forest": ClisForest(n_estimators=10, n_clusters=n_clusters, loss_metric="pinball", lookahead_depth=0)
         }
 
         results = {}
@@ -75,7 +75,7 @@ def run_final_benchmark():
         
         # Helper to create 3D axes
         def add_3d_subplot(pos, title):
-            ax = fig.add_subplot(2, 5, pos, projection='3d')
+            ax = fig.add_subplot(2, 6, pos, projection='3d')
             ax.set_title(title)
             return ax
 
@@ -88,7 +88,7 @@ def run_final_benchmark():
         fig.colorbar(sc, ax=ax10, shrink=0.5)
 
         # Map Results to Plots
-        model_names = ["KMeans", "GMM", "CLIS-Single"] # "CLIS-Forest"
+        model_names = ["KMeans", "GMM", "CLIS-Single", "CLIS-Forest"]
         for i, name in enumerate(model_names):
             # Train Plots
             ax_train = add_3d_subplot(i+2, f"{name} (Train)\nTime: {results[name]['time']:.2f}s")

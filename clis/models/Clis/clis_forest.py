@@ -6,32 +6,40 @@ from .engine import Clis
 
 class ClisForest(BaseEstimator, ClusterMixin):
     def __init__(
-        self, 
-        n_estimators=10, 
+        self,
+        n_estimators=10,
         bootstrap_sample_ratio=0.5,
         n_clusters=3,
         random_state=42,
+        split_cols=None,
         **tree_params
     ):
         self.n_estimators = n_estimators
         self.bootstrap_sample_ratio = bootstrap_sample_ratio
         self.n_clusters = n_clusters
         self.random_state = random_state
+        self.split_cols = split_cols
         self.tree_params = tree_params
         self.trees = []
 
     def fit(self, X, y):
+        if not isinstance(X, pd.DataFrame):
+            X = pd.DataFrame(X)
         np.random.seed(self.random_state)
         self.trees = []
         n_samples = len(X)
         sample_size = int(n_samples * self.bootstrap_sample_ratio)
 
+        tree_params = dict(self.tree_params)
+        if self.split_cols is not None:
+            tree_params["split_cols"] = self.split_cols
+
         for i in range(self.n_estimators):
             indices = np.random.choice(n_samples, sample_size, replace=True)
-            X_sample = X.iloc[indices]
-            y_sample = y[indices]
+            X_sample = X.iloc[indices] if hasattr(X, 'iloc') else X[indices]
+            y_sample = y[indices] if hasattr(y, '__getitem__') else np.asarray(y)[indices]
 
-            tree = Clis(random_state=self.random_state + i, **self.tree_params)
+            tree = Clis(random_state=self.random_state + i, **tree_params)
             tree.fit(X_sample, y_sample)
             self.trees.append(tree)
         
@@ -40,9 +48,11 @@ class ClisForest(BaseEstimator, ClusterMixin):
     def predict(self, X):
         """
         Modified Scalable Consensus:
-        Uses Leaf-Feature Embedding + MiniBatchKMeans instead of 
+        Uses Leaf-Feature Embedding + MiniBatchKMeans instead of
         an N x N Co-association matrix.
         """
+        if not isinstance(X, pd.DataFrame):
+            X = pd.DataFrame(X)
         n_samples = len(X)
         
         # 1. Generate an 'Embedding' of leaf IDs

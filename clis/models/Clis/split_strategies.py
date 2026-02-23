@@ -1,102 +1,185 @@
+"""
+Generalized split strategies for arbitrary-dimensional data.
+
+Each strategy operates on a configurable set of split columns (split_cols).
+Strategies support 2D (x,y), 3D (x,y,z), or any number of dimensions.
+"""
+
 import numpy as np
 
+
 class BaseSplitStrategy:
-    """Base class for spatial split logic."""
+    """Base class for split logic. Operates on configurable split columns."""
+    
+    def __init__(self, split_cols=None):
+        """
+        Parameters
+        ----------
+        split_cols : list of str or int, optional
+            Column names or indices for splitting. If None, uses ["x", "y"] for backward compat.
+        """
+        self.split_cols = split_cols or ["x", "y"]
+    
+    def _get_split_data(self, data):
+        """Extract split columns as array."""
+        try:
+            return data[self.split_cols].values
+        except (KeyError, TypeError):
+            return data.iloc[:, self.split_cols].values
+    
     def propose(self, data):
         raise NotImplementedError
     
     def apply(self, data, params):
         raise NotImplementedError
 
+
 class AxisSplit(BaseSplitStrategy):
+    """Split along a single axis (dimension)."""
+    
     def propose(self, data):
-        axis = np.random.choice(["x", "y"])
-        lo, hi = data[axis].min(), data[axis].max()
-        if hi - lo < 1e-5: return None
-        # Off-center split: use a jittered median or a wide-range uniform
-        # Using 25th-75th percentile range helps avoid the exact center
-        low_q, high_q = np.percentile(data[axis], [20, 80])
-        return {"axis": axis, "value": np.random.uniform(low_q, high_q)}
+        split_data = self._get_split_data(data)
+        axis_idx = np.random.randint(0, split_data.shape[1])
+        col_data = split_data[:, axis_idx]
+        
+        lo, hi = col_data.min(), col_data.max()
+        if hi - lo < 1e-5:
+            return None
+        low_q, high_q = np.percentile(col_data, [20, 80])
+        return {"axis_idx": axis_idx, "value": np.random.uniform(low_q, high_q)}
 
     def apply(self, data, params):
-        return data[params["axis"]] < params["value"]
+        axis_idx = params["axis_idx"]
+        col = data.iloc[:, axis_idx]
+        return col < params["value"]
+
 
 class RadialSplit(BaseSplitStrategy):
+    """Split by Euclidean distance from a center point in split space."""
+    
     def propose(self, data):
-        # To handle symmetry, pick a point and apply a "jitter" offset 
-        # so the circle isn't perfectly centered on the data centroid
-        sample_point = data.sample(1)
-        cx, cy = sample_point["x"].values[0], sample_point["y"].values[0]
+        split_data = self._get_split_data(data)
+        n_dims = split_data.shape[1]
         
-        # Add spatial jitter (5-10% of local spread) to break symmetry
-        x_range = data["x"].max() - data["x"].min()
-        y_range = data["y"].max() - data["y"].min()
-        cx += np.random.uniform(-0.1, 0.1) * x_range
-        cy += np.random.uniform(-0.1, 0.1) * y_range
+        # Sample a point and add jitter
+        sample_idx = np.random.randint(len(split_data))
+        center = split_data[sample_idx].copy()
         
-        dists = np.sqrt((data["x"] - cx)**2 + (data["y"] - cy)**2)
-        if dists.max() < 1e-5: return None
+        ranges = split_data.max(axis=0) - split_data.min(axis=0)
+        center += np.random.uniform(-0.1, 0.1, n_dims) * np.maximum(ranges, 1e-6)
         
-        # Use a wider range for r to allow "off-center" rings to capture edges
+        dists = np.sqrt(np.sum((split_data - center) ** 2, axis=1))
+        if dists.max() < 1e-5:
+            return None
+        
         low, high = np.percentile(dists, [10, 85])
-        return {"cx": cx, "cy": cy, "r": np.random.uniform(low, high)}
+        return {"center": center, "r": np.random.uniform(low, high), "split_cols": self.split_cols}
 
     def apply(self, data, params):
-        dists = np.sqrt((data["x"] - params["cx"])**2 + (data["y"] - params["cy"])**2)
+        split_data = self._get_split_data(data)
+        center = np.asarray(params["center"])
+        dists = np.sqrt(np.sum((split_data - center) ** 2, axis=1))
         return dists < params["r"]
 
+
 class ObliqueSplit(BaseSplitStrategy):
+    """Split by linear combination (hyperplane) in split space."""
+    
     def propose(self, data):
-        theta = np.random.uniform(0, np.pi) 
-        a, b = np.cos(theta), np.sin(theta)
-        proj = a * data["x"] + b * data["y"]
+        split_data = self._get_split_data(data)
+        n_dims = split_data.shape[1]
         
-        if proj.max() - proj.min() < 1e-5: return None
+        # Random direction on unit sphere
+        direction = np.random.randn(n_dims)
+        direction /= np.linalg.norm(direction)
         
-        # Shift the intercept 'c' away from the mean/median
+        proj = np.dot(split_data, direction)
+        if proj.max() - proj.min() < 1e-5:
+            return None
+        
         low, high = np.percentile(proj, [15, 85])
-        return {"a": a, "b": b, "c": np.random.uniform(low, high)}
+        return {"direction": direction, "c": np.random.uniform(low, high), "split_cols": self.split_cols}
 
     def apply(self, data, params):
-        return (params["a"] * data["x"] + params["b"] * data["y"]) < params["c"]
+        split_data = self._get_split_data(data)
+        direction = np.asarray(params["direction"])
+        proj = np.dot(split_data, direction)
+        return proj < params["c"]
+
 
 class EllipticalSplit(BaseSplitStrategy):
+    """Split by ellipse (2D) or ellipsoid (higher D) in split space."""
+    
     def propose(self, data):
-        sample_point = data.sample(1)
-        cx, cy = sample_point["x"].values[0], sample_point["y"].values[0]
+        split_data = self._get_split_data(data)
+        n_dims = split_data.shape[1]
         
-        # Off-center bias: shift center away from the sampled point slightly
-        x_std = data["x"].std()
-        y_std = data["y"].std()
-        cx += np.random.normal(0, 0.2 * x_std)
-        cy += np.random.normal(0, 0.2 * y_std)
+        if n_dims < 2:
+            return None
+            
+        # Sample center with jitter
+        sample_idx = np.random.randint(len(split_data))
+        center = split_data[sample_idx].copy()
+        stds = np.std(split_data, axis=0)
+        center += np.random.normal(0, 0.2, n_dims) * np.maximum(stds, 1e-6)
         
-        angle = np.random.uniform(0, np.pi)
-        max_dist = np.sqrt((data["x"] - cx)**2 + (data["y"] - cy)**2).max()
-        if max_dist < 1e-5: return None
+        max_dist = np.sqrt(np.sum((split_data - center) ** 2, axis=1)).max()
+        if max_dist < 1e-5:
+            return None
         
-        # Ensure 'a' and 'b' are not just the max distance (which creates a circle)
-        # Randomizing eccentricity helps break symmetric patterns
-        a = np.random.uniform(0.2, 0.9) * max_dist
-        b = np.random.uniform(0.2, 0.9) * max_dist
+        # Semi-axes (random eccentricity)
+        axes = np.random.uniform(0.2, 0.9, n_dims) * max_dist
         
-        return {"cx": cx, "cy": cy, "a": a, "b": b, "angle": angle}
+        # Random rotation for n_dims >= 2
+        if n_dims == 2:
+            angle = np.random.uniform(0, np.pi)
+            cos_a, sin_a = np.cos(angle), np.sin(angle)
+            rotation = np.array([[cos_a, -sin_a], [sin_a, cos_a]])
+        else:
+            # Random orthogonal matrix (simplified: use QR of random matrix)
+            rotation = np.linalg.qr(np.random.randn(n_dims, n_dims))[0]
+        
+        return {
+            "center": center,
+            "axes": axes,
+            "rotation": rotation,
+            "split_cols": self.split_cols,
+            "n_dims": n_dims
+        }
 
     def apply(self, data, params):
-        cos_a = np.cos(params["angle"])
-        sin_a = np.sin(params["angle"])
-        dx = data["x"] - params["cx"]
-        dy = data["y"] - params["cy"]
+        split_data = self._get_split_data(data)
+        center = np.asarray(params["center"])
+        axes = np.asarray(params["axes"])
+        rotation = np.asarray(params["rotation"])
         
-        x_rot = dx * cos_a + dy * sin_a
-        y_rot = -dx * sin_a + dy * cos_a
-        
-        mask = (x_rot / params["a"])**2 + (y_rot / params["b"])**2 < 1
-        return mask
+        centered = split_data - center
+        rotated = np.dot(centered, rotation.T)
+        normalized = rotated / np.maximum(axes, 1e-10)
+        return np.sum(normalized ** 2, axis=1) < 1
 
-STRATEGY_MAP = {
-    "axis": AxisSplit(),
-    "radial": RadialSplit(),
-    "oblique": ObliqueSplit(),
-    "elliptical": EllipticalSplit()
-}
+
+def get_strategy_map(split_cols=None):
+    """
+    Get strategy instances configured for the given split columns.
+    
+    Parameters
+    ----------
+    split_cols : list, optional
+        Column names/indices for splitting. Default ["x", "y"].
+    
+    Returns
+    -------
+    dict : strategy_name -> strategy instance
+    """
+    cols = split_cols or ["x", "y"]
+    return {
+        "axis": AxisSplit(cols),
+        "radial": RadialSplit(cols),
+        "oblique": ObliqueSplit(cols),
+        "elliptical": EllipticalSplit(cols),
+    }
+
+
+# Backward compatibility: default 2D strategies
+STRATEGY_MAP = get_strategy_map(["x", "y"])
